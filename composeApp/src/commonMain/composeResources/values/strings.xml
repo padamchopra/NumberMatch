@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Number Match</string>
+    <string name="sign_in_title">Sign in to your account</string>
+    <string name="sign_up_title">Create an account</string>
+    <string name="email_address">Email address</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="continue_label">Continue</string>
+    <string name="dont_have_an_account">Don't have an account yet?</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="sign_up">Sign up</string>
+    <string name="sign_in">Sign in</string>
+    <string name="generic_exception">An error occurred</string>
+    <string name="auth_email_exception">Failed to send email</string>
+    <string name="auth_weak_password_exception">Password is too weak</string>
+    <string name="auth_invalid_credentials_exception">Invalid email or password</string>
+    <string name="auth_user_collision_exception">Email is already in use</string>
+    <string name="auth_email_empty">Email is blank</string>
+    <string name="auth_forgot_password_email_sent">Reset password email sent!</string>
+    <string name="back">Back</string>
+    <string name="onboarding_screen_title">About You</string>
+    <string name="onboarding_screen_subtitle">Enter your name and a unique\nusername to get started</string>
+    <string name="name">Name</string>
+    <string name="username">Username</string>
+    <string name="username_length_hint">Your username must be at least %1$d characters</string>
+    <string name="duplicate_username_error">Username must be unique</string>
+</resources>
