@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import me.padamchopra.numbermatch.di.dataSourcesModule
+import me.padamchopra.numbermatch.di.platformModule
 import me.padamchopra.numbermatch.di.repositoriesModule
 import me.padamchopra.numbermatch.di.utilsModule
 import me.padamchopra.numbermatch.di.viewModelsModule
@@ -36,6 +37,7 @@ fun App(
         KoinApplication(
             application = {
                 modules(
+                    platformModule(),
                     dataSourcesModule(),
                     repositoriesModule(),
                     utilsModule(),

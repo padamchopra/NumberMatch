@@ -6,6 +6,6 @@ data class FieldComparator(
     val operator: Operator,
 ) {
     enum class Operator {
-        Equal,
+        Equal
     }
 }

@@ -149,7 +149,7 @@ private fun CustomSnackBar(
     Row(
         modifier = Modifier
             .padding(MaterialTheme.dimensions.padding150)
-            .clip(MaterialTheme.shapes.medium)
+            .clip(MaterialTheme.shapes.extraSmall)
             .background(backgroundColor)
             .onSizeChanged {
                 height = with(density) {

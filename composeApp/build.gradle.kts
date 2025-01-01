@@ -8,6 +8,8 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.googleServices)
+    alias(libs.plugins.firebaseCrashlytics)
 }
 
 kotlin {
@@ -39,6 +41,8 @@ kotlin {
             implementation(libs.androidx.activity.compose)
 
             implementation(libs.androidx.core.splashscreen)
+            implementation(project.dependencies.platform(libs.firebase.bom))
+            implementation(libs.bundles.firebase)
         }
         commonMain.dependencies {
             implementation(compose.runtime)

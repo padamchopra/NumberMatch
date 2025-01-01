@@ -3,7 +3,6 @@ package me.padamchopra.numbermatch.ui.auth
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,7 +35,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import me.padamchopra.numbermatch.Async
 import me.padamchopra.numbermatch.UiState
-import me.padamchopra.numbermatch.extensions.debounceClickable
+import me.padamchopra.numbermatch.extensions.bounceClickable
+import me.padamchopra.numbermatch.extensions.noIndicationClickable
 import me.padamchopra.numbermatch.ui.appColors
 import me.padamchopra.numbermatch.ui.components.CustomButton
 import me.padamchopra.numbermatch.ui.components.CustomTextField
@@ -106,7 +106,7 @@ object AuthScreen {
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.appColors.tileBackground)
-                .clickable {
+                .noIndicationClickable {
                     keyboardController?.hide()
                 }
                 .imePadding(),
@@ -117,6 +117,7 @@ object AuthScreen {
                     .padding(MaterialTheme.dimensions.screenPadding)
                     .align(Alignment.Center),
                 colors = CardDefaults.elevatedCardColors(),
+                elevation = CardDefaults.elevatedCardElevation()
             ) {
                 val spacedBy = MaterialTheme.dimensions.padding300
                 Column(
@@ -200,7 +201,7 @@ object AuthScreen {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(top = spacedBy)
-                                .debounceClickable(onClick = onForgotPasswordClick),
+                                .bounceClickable(onClick = onForgotPasswordClick),
                             text = stringResource(Res.string.forgot_password),
                             style = MaterialTheme.typography.bodyMedium,
                             textAlign = TextAlign.Center,
@@ -222,7 +223,7 @@ object AuthScreen {
                     .align(Alignment.BottomCenter)
                     .padding(MaterialTheme.dimensions.screenPadding)
                     .navigationBarsPadding()
-                    .debounceClickable(onClick = onSwitchAuthTypeClick),
+                    .bounceClickable(onClick = onSwitchAuthTypeClick),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
@@ -231,7 +232,7 @@ object AuthScreen {
                         State.AuthType.SignIn -> stringResource(Res.string.dont_have_an_account)
                         State.AuthType.SignUp -> stringResource(Res.string.already_have_an_account)
                     },
-                    color = MaterialTheme.colorScheme.onPrimary,
+                    color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
                     textAlign = TextAlign.Center,
                 )
@@ -241,7 +242,7 @@ object AuthScreen {
                         State.AuthType.SignIn -> stringResource(Res.string.sign_up)
                         State.AuthType.SignUp -> stringResource(Res.string.sign_in)
                     },
-                    color = MaterialTheme.colorScheme.onPrimary,
+                    color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.bodyMedium,
                     textDecoration = TextDecoration.Underline,
                     textAlign = TextAlign.Center,
