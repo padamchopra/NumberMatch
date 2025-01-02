@@ -4,6 +4,10 @@ import platform.Foundation.NSLog
 
 actual object AppLogger {
     actual fun debug(tag: String, message: String) {
-        NSLog("[$tag] $message")
+        NSLog("[DEBUG] [$tag] $message")
+    }
+
+    actual fun error(tag: String, message: String) {
+        NSLog("[ERROR] [$tag] $message")
     }
 }

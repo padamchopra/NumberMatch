@@ -48,10 +48,11 @@ firebase-auth = { module = "com.google.firebase:firebase-auth" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-firestore = { module = "com.google.firebase:firebase-firestore" }
+firebase-config = { module = "com.google.firebase:firebase-config" }
 
 [bundles]
 koin = ["koin-compose", "koin-compose-viewmodel", "koin-compose-viewmodel-navigation"]
-firebase = ["firebase-auth", "firebase-analytics", "firebase-crashlytics", "firebase-firestore"]
+firebase = ["firebase-auth", "firebase-analytics", "firebase-crashlytics", "firebase-firestore", "firebase-config"]
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

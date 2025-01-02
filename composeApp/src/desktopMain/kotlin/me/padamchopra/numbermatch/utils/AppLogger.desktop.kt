@@ -9,4 +9,8 @@ actual object AppLogger {
     actual fun debug(tag: String, message: String) {
         logger.log(Level.FINE, "DEBUG $tag: $message")
     }
+
+    actual fun error(tag: String, message: String) {
+        logger.log(Level.SEVERE, "ERROR $tag: $message")
+    }
 }

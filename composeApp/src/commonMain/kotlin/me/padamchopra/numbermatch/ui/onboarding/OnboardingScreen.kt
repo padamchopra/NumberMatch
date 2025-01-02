@@ -30,7 +30,6 @@ import me.padamchopra.numbermatch.ui.dimensions
 import me.padamchopra.numbermatch.ui.high
 import me.padamchopra.numbermatch.ui.medium
 import me.padamchopra.numbermatch.ui.rounded
-import me.padamchopra.numbermatch.utils.RemoteConfig
 import numbermatch.composeapp.generated.resources.Res
 import numbermatch.composeapp.generated.resources.back
 import numbermatch.composeapp.generated.resources.continue_label
@@ -51,7 +50,7 @@ object OnboardingScreen {
         val name: String = "",
         val username: String = "",
         val continueJob: Async<Unit> = Async.Uninitialized,
-        val usernameMinLength: Int = RemoteConfig.UsernameMinLength.defaultValue,
+        val usernameMinLength: Long,
         val uniqueUsernameCheckJob: Async<UsernameCheckResult> = Async.Uninitialized,
         val usernameUnique: Boolean = false,
         val showUsernameDuplicateError: Boolean = false,

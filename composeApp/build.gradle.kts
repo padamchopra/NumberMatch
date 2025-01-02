@@ -1,3 +1,4 @@
+import com.android.build.api.variant.BuildConfigField
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -75,6 +76,8 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+
+        BuildConfigField("int", "CONFIG_FETCH_INTERVAL", "30")
     }
     packaging {
         resources {
@@ -83,6 +86,7 @@ android {
     }
     buildTypes {
         getByName("release") {
+            BuildConfigField("int", "CONFIG_FETCH_INTERVAL", "3600")
             isMinifyEnabled = false
         }
     }

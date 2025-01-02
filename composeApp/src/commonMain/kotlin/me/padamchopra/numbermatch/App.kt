@@ -14,7 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import me.padamchopra.numbermatch.di.dataSourcesModule
 import me.padamchopra.numbermatch.di.platformModule
 import me.padamchopra.numbermatch.di.repositoriesModule
-import me.padamchopra.numbermatch.di.utilsModule
+import me.padamchopra.numbermatch.di.appModule
 import me.padamchopra.numbermatch.di.viewModelsModule
 import me.padamchopra.numbermatch.navigation.AppNavHost
 import me.padamchopra.numbermatch.navigation.NavAction
@@ -40,7 +40,7 @@ fun App(
                     platformModule(),
                     dataSourcesModule(),
                     repositoriesModule(),
-                    utilsModule(),
+                    appModule(),
                     viewModelsModule()
                 )
             }

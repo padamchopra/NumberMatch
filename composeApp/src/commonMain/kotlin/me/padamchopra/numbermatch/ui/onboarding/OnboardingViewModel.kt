@@ -13,24 +13,22 @@ import me.padamchopra.numbermatch.BaseViewModel
 import me.padamchopra.numbermatch.navigation.NavAction
 import me.padamchopra.numbermatch.navigation.Navigator
 import me.padamchopra.numbermatch.navigation.Route
+import me.padamchopra.numbermatch.remoteconfig.RemoteConfigProvider
+import me.padamchopra.numbermatch.remoteconfig.UsernameMinLengthRemoteConfig
 import me.padamchopra.numbermatch.repositories.AuthRepository
 import me.padamchopra.numbermatch.repositories.OnboardingRepository
-import me.padamchopra.numbermatch.utils.RemoteConfig
-import me.padamchopra.numbermatch.utils.RemoteConfigProvider
 
 class OnboardingViewModel(
-    private val remoteConfigProvider: RemoteConfigProvider,
+    remoteConfigProvider: RemoteConfigProvider,
     private val onboardingRepository: OnboardingRepository,
     private val authRepository: AuthRepository
-): BaseViewModel<OnboardingScreen.State>(OnboardingScreen.State()) {
+): BaseViewModel<OnboardingScreen.State>(
+    OnboardingScreen.State(
+        usernameMinLength = remoteConfigProvider.resolve(UsernameMinLengthRemoteConfig)
+    )
+) {
 
     init {
-        setState {
-            copy(
-                usernameMinLength = remoteConfigProvider.resolve(RemoteConfig.UsernameMinLength),
-            )
-        }
-
         @OptIn(FlowPreview::class)
         viewModelScope.launch {
             stateFlow
