@@ -1,55 +1,63 @@
-package me.padamchopra.paysy.ui.auth
+package me.padamchopra.numbermatch.ui.auth
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import me.padamchopra.numbermatch.Async
 import me.padamchopra.numbermatch.BaseViewModel
 import me.padamchopra.numbermatch.models.StringData
-import me.padamchopra.numbermatch.ui.auth.AuthScreen
+import me.padamchopra.numbermatch.navigation.NavAction
+import me.padamchopra.numbermatch.navigation.Navigator
+import me.padamchopra.numbermatch.navigation.Route
+import me.padamchopra.numbermatch.repositories.AuthRepository
+import me.padamchopra.numbermatch.repositories.OnboardingRepository
 import me.padamchopra.numbermatch.utils.ShowSnackBar
 import numbermatch.composeapp.generated.resources.Res
 import numbermatch.composeapp.generated.resources.auth_email_empty
+import numbermatch.composeapp.generated.resources.auth_forgot_password_email_sent
 
-class AuthViewModel: BaseViewModel<AuthScreen.State>(initialState = AuthScreen.State()) {
+class AuthViewModel(
+    private val onboardingRepository: OnboardingRepository,
+    private val authRepository: AuthRepository
+): BaseViewModel<AuthScreen.State>(initialState = AuthScreen.State()) {
     init {
-//        onAsync(AuthScreen.State::continueJob) { authType ->
-//            when (authType) {
-//                AuthScreen.State.AuthType.SignIn -> {
-//                    suspend {
-//                        onboardingRepository.hasUserFinishedOnboarding()
-//                    }.execute { job ->
-//                        copy(
-//                            hasFinishedOnboardingJob = job,
-//                        )
-//                    }
-//                }
-//                AuthScreen.State.AuthType.SignUp -> {
-//                    viewModelScope.launch {
-//                        Navigator.execute(
-//                            NavAction.ClearStackAndPush(route = Route.Onboarding),
-//                        )
-//                    }
-//                }
-//            }
-//        }
+        onAsync(AuthScreen.State::continueJob) { authType ->
+            when (authType) {
+                AuthScreen.State.AuthType.SignIn -> {
+                    suspend {
+                        onboardingRepository.hasUserFinishedOnboarding()
+                    }.execute { job ->
+                        copy(
+                            hasFinishedOnboardingJob = job,
+                        )
+                    }
+                }
+                AuthScreen.State.AuthType.SignUp -> {
+                    viewModelScope.launch {
+                        Navigator.execute(
+                            NavAction.ClearStackAndPush(route = Route.Onboarding),
+                        )
+                    }
+                }
+            }
+        }
 
-//        onAsync(
-//            AuthScreen.State::hasFinishedOnboardingJob,
-//        ) { hasFinishedOnboarding ->
-//            val route = when (hasFinishedOnboarding) {
-//                true -> Route.Home
-//                false -> Route.Onboarding
-//            }
-//            viewModelScope.launch {
-//                Navigator.execute(
-//                    NavAction.ClearStackAndPush(route = route),
-//                )
-//            }
-//        }
-//
-//        onAsync(AuthScreen.State::forgotPasswordJob) {
-//            ShowSnackBar.success(StringData.Resource(Res.string.auth_forgot_password_email_sent))
-//        }
+        onAsync(
+            AuthScreen.State::hasFinishedOnboardingJob,
+        ) { hasFinishedOnboarding ->
+            val route = when (hasFinishedOnboarding) {
+                true -> Route.Home
+                false -> Route.Onboarding
+            }
+            viewModelScope.launch {
+                Navigator.execute(
+                    NavAction.ClearStackAndPush(route = route),
+                )
+            }
+        }
+
+        onAsync(AuthScreen.State::forgotPasswordJob) {
+            ShowSnackBar.success(StringData.Resource(Res.string.auth_forgot_password_email_sent))
+        }
     }
 
     fun onSwitchAuthTypeClick() {
@@ -77,13 +85,13 @@ class AuthViewModel: BaseViewModel<AuthScreen.State>(initialState = AuthScreen.S
                 return@withState
             }
 
-//            suspend {
-//                authRepository.sendPasswordResetEmail(email = state.email)
-//            }.execute {
-//                copy(
-//                    forgotPasswordJob = it,
-//                )
-//            }
+            suspend {
+                authRepository.sendPasswordResetEmail(email = state.email)
+            }.execute {
+                copy(
+                    forgotPasswordJob = it,
+                )
+            }
         }
     }
 
@@ -107,20 +115,20 @@ class AuthViewModel: BaseViewModel<AuthScreen.State>(initialState = AuthScreen.S
             if (state.continueJob is Async.Loading) return@withState
 
             suspend {
-//                when (state.authType) {
-//                    AuthScreen.State.AuthType.SignIn -> {
-//                        authRepository.signIn(
-//                            email = state.email,
-//                            password = state.password,
-//                        )
-//                    }
-//                    AuthScreen.State.AuthType.SignUp -> {
-//                        authRepository.signUp(
-//                            email = state.email,
-//                            password = state.password,
-//                        )
-//                    }
-//                }
+                when (state.authType) {
+                    AuthScreen.State.AuthType.SignIn -> {
+                        authRepository.signIn(
+                            email = state.email,
+                            password = state.password,
+                        )
+                    }
+                    AuthScreen.State.AuthType.SignUp -> {
+                        authRepository.signUp(
+                            email = state.email,
+                            password = state.password,
+                        )
+                    }
+                }
                 state.authType
             }.execute {
                 copy(

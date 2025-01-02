@@ -13,11 +13,15 @@ import me.padamchopra.numbermatch.BaseViewModel
 import me.padamchopra.numbermatch.navigation.NavAction
 import me.padamchopra.numbermatch.navigation.Navigator
 import me.padamchopra.numbermatch.navigation.Route
+import me.padamchopra.numbermatch.repositories.AuthRepository
+import me.padamchopra.numbermatch.repositories.OnboardingRepository
 import me.padamchopra.numbermatch.utils.RemoteConfig
 import me.padamchopra.numbermatch.utils.RemoteConfigProvider
 
 class OnboardingViewModel(
     private val remoteConfigProvider: RemoteConfigProvider,
+    private val onboardingRepository: OnboardingRepository,
+    private val authRepository: AuthRepository
 ): BaseViewModel<OnboardingScreen.State>(OnboardingScreen.State()) {
 
     init {
@@ -37,19 +41,19 @@ class OnboardingViewModel(
                 .debounce(300)
                 .distinctUntilChanged()
                 .collectLatest { username ->
-//                    suspend {
-//                        onboardingRepository.isUsernameUnique(username)
-//                    }.execute {
-//                        copy(
-//                            uniqueUsernameCheckJob = it.mapSuccess { data ->
-//                                OnboardingScreen.State.UsernameCheckResult(
-//                                    isUnique = data,
-//                                    username = username,
-//                                )
-//                            },
-//                            usernameUnique = false,
-//                        )
-//                    }
+                    suspend {
+                        onboardingRepository.isUsernameUnique(username)
+                    }.execute {
+                        copy(
+                            uniqueUsernameCheckJob = it.mapSuccess { data ->
+                                OnboardingScreen.State.UsernameCheckResult(
+                                    isUnique = data,
+                                    username = username,
+                                )
+                            },
+                            usernameUnique = false,
+                        )
+                    }
                 }
         }
 
@@ -73,13 +77,13 @@ class OnboardingViewModel(
         withState { state ->
             if (state.backJob is Async.Loading) return@withState
 
-//            suspend {
-//                authRepository.signOut()
-//            }.execute {
-//                copy(
-//                    backJob = it,
-//                )
-//            }
+            suspend {
+                authRepository.signOut()
+            }.execute {
+                copy(
+                    backJob = it,
+                )
+            }
         }
     }
 
@@ -108,16 +112,16 @@ class OnboardingViewModel(
         withState { state ->
             if (state.continueJob is Async.Loading) return@withState
 
-//            suspend {
-//                onboardingRepository.submitUserInfo(
-//                    name = state.name,
-//                    username = state.username,
-//                )
-//            }.execute {
-//                copy(
-//                    continueJob = it,
-//                )
-//            }
+            suspend {
+                onboardingRepository.submitUserInfo(
+                    name = state.name,
+                    username = state.username,
+                )
+            }.execute {
+                copy(
+                    continueJob = it,
+                )
+            }
         }
     }
 }

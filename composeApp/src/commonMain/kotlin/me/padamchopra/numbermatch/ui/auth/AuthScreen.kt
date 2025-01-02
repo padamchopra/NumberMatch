@@ -41,7 +41,6 @@ import me.padamchopra.numbermatch.ui.appColors
 import me.padamchopra.numbermatch.ui.components.CustomButton
 import me.padamchopra.numbermatch.ui.components.CustomTextField
 import me.padamchopra.numbermatch.ui.dimensions
-import me.padamchopra.paysy.ui.auth.AuthViewModel
 import numbermatch.composeapp.generated.resources.Res
 import numbermatch.composeapp.generated.resources.already_have_an_account
 import numbermatch.composeapp.generated.resources.continue_label
